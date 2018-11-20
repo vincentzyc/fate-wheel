@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
-    <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
     <title>命运之轮</title>
     <style>
         #app {
@@ -226,21 +225,20 @@
     </div>
     <script>
         var angle = 0,
-            isStatr = false,
-            myCanvas = document.getElementById("canvas_circle");
+            isStatr = false;
 
         function getColor() {
             var r = Math.floor(Math.random() * 256); //随机生成256以内r值
             var g = Math.floor(Math.random() * 256); //随机生成256以内g值
             var b = Math.floor(Math.random() * 256); //随机生成256以内b值
-            return `rgb(${r},${g},${b})`; //返回rgb(r,g,b)格式颜色
+            return "rgb(" + r + "," + g + "," + b + ")"; //返回rgb(r,g,b)格式颜色
         }
 
         function rotate() {
             if (!isStatr) {
                 isStatr = true;
                 var randomAngle = parseInt((Math.random() + 1) * 3600);
-                myCanvas.style.transform = "rotate(" + (angle + randomAngle) + "deg)";
+                document.getElementById("canvas_circle").style.transform = "rotate(" + (angle + randomAngle) + "deg)";
                 setTimeout(() => {
                     angle += randomAngle;
                     isStatr = false;
@@ -311,8 +309,6 @@
         }
         window.onload = init;
     </script>
-    <!-- <script src="https://cdn.bootcss.com/vue/2.5.17/vue.min.js"></script> -->
-    <!-- built files will be auto injected -->
 </body>
 
 </html>
