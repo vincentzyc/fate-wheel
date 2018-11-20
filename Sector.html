@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<body>
+
+    <canvas id="canvas_circle" width="300" height="600"></canvas>
+    <script>
+        function drawCircle(canvasId, data_arr, color_arr, text_arr) {
+            var c = document.getElementById(canvasId);
+            var ctx = c.getContext("2d"); //图画绘制对象
+            var radius = c.width * 0.5 - 20; //半径
+            var ox = radius + 20,
+                oy = radius + 20; //圆心
+            var pwidth = 30,
+                pheight = 10; //图例宽高
+            var posX = c.width * 0.3,
+                posY = c.width; //图例开始位置
+            var textX = posX + pwidth + 5,
+                textY = posY + 10; //文字开始位置
+            //弧度
+            var startAngle = 0; //开始
+            var endAngle = 0; //结束
+
+            for (var i = 0; i < data_arr.length; i++) {
+                endAngle = endAngle + data_arr[i] * Math.PI * 2;
+                ctx.fillStyle = color_arr[i];
+                ctx.beginPath();
+                ctx.moveTo(ox, oy);
+                ctx.arc(ox, oy, radius, startAngle, endAngle, false);
+                ctx.closePath();
+                ctx.fill();
+                startAngle = endAngle;
+                //绘制图例
+                ctx.fillStyle = color_arr[i];
+                ctx.fillRect(posX, posY + 20 * i, pwidth, pheight);
+                //绘制文字
+                ctx.moveTo(posX, posY + 20 * i);
+                ctx.font = 'bold 12px 微软雅黑';
+                ctx.fillStyle = color_arr[i];
+                var percent = text_arr[i] + ":" + 100 * data_arr[i] + "%";
+                ctx.fillText(percent, textX, textY + 20 * i);
+            }
+        }
+
+        function init() {
+
+            var data_arr = [0.1, 0.25, 0.6, 0.05]; //各类的百分比
+            var color_arr = ["#00FF21", "#FFAA00", "#00AABB", "#FF4400"]; //现实的颜色
+            var text_arr = ["音频或视频播放器", "笔记本电脑", "智能手机", "电视"]; //分类
+            drawCircle("canvas_circle", data_arr, color_arr, text_arr); //调用函数
+
+        }
+        window.onload = init;
+    </script>
+</body>
+
+</html>
